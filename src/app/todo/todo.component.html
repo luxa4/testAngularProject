@@ -1,0 +1,27 @@
+
+
+<div *ngIf="!loading">
+
+<ul *ngIf="todoService.todos.length; else noData">
+  <li *ngFor="let todo of todoService.todos | todosFilter:searchString ; let i=index">
+    <input type="checkbox" [checked]="todo.completed" (change)="onChange(todo.id)">
+    {{i+1}}
+    <span [class.done]="todo.completed" >{{todo.title}}</span>
+    {{todo.date | date:'short'}}
+    <button (click)="removeTodo(todo.id)">x</button>
+  </li>
+</ul>
+
+
+<ng-template #noData >
+  We don't have any data! :(
+</ng-template>
+</div>
+
+<div class="filter">
+  <input type="text" [(ngModel)]="searchString">
+</div>
+
+<div *ngIf="loading">
+  Loading....
+</div>
